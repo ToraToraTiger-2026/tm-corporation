@@ -59,10 +59,6 @@ main:focus { outline: none; }
 .sub a { display: block; padding: 10px 20px; color: var(--c-text); text-decoration: none; font-size: .9rem; }
 .sub a:hover { background: var(--c-bg-soft); color: var(--c-primary); }
 .has-sub:hover > .sub, .has-sub:focus-within > .sub, .has-sub.open > .sub { display: block; }
-.lang { display: flex; font-size: .8rem; border: 1px solid var(--c-line); border-radius: 999px; overflow: hidden; }
-.lang span { padding: 4px 12px; }
-.lang-on { background: var(--c-primary); color: #fff; }
-.lang-off { color: var(--c-text-sub); cursor: not-allowed; }
 .menu-toggle { display: none; background: none; border: 1px solid var(--c-line); border-radius: var(--radius); width: 44px; height: 44px; cursor: pointer; position: relative; }
 .menu-toggle .bars, .menu-toggle .bars::before, .menu-toggle .bars::after { content: ""; position: absolute; left: 11px; width: 20px; height: 2px; background: var(--c-primary-dark); transition: transform .2s; }
 .menu-toggle .bars { top: 21px; }
@@ -81,7 +77,6 @@ main:focus { outline: none; }
   .sub { position: static; border: 0; box-shadow: none; background: var(--c-bg-soft); }
   .has-sub:hover > .sub, .has-sub:focus-within > .sub { display: none; }
   .has-sub.open > .sub { display: block; }
-  .lang { align-self: flex-start; margin-top: 16px; }
 }
 
 /* ===== Breadcrumb ===== */

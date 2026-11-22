@@ -25,7 +25,6 @@ function Get-HeaderNav([string]$current) {
     <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="global-nav"><span class="bars" aria-hidden="true"></span><span class="sr-only">メニュー</span></button>
     <nav class="global-nav" id="global-nav" aria-label="グローバルナビゲーション">
       <ul class="nav-list">$items</ul>
-      <div class="lang" aria-label="言語切替"><span class="lang-on" lang="ja">JP</span><span class="lang-off" lang="en" aria-disabled="true" title="準備中">EN</span></div>
     </nav>
   </div>
 </header>
