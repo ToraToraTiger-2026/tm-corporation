@@ -1,14 +1,12 @@
 @{
   path = '/contact/'
   title = 'お問い合わせ'
-  description = 'TMコーポレーション株式会社へのお問い合わせフォームです。本サイトは架空のデモサイトのため、入力内容は送信されません。'
+  description = 'TMコーポレーション株式会社へのお問い合わせフォームです。'
   crumbs = @()
   body = @"
 $(Get-PageHero 'お問い合わせ' '' 'Contact')
 <section class="section"><div class="container">
   <div class="prose">
-    <p class="notice"><strong>ご注意:</strong>本サイトは架空の企業を題材にしたデモサイトです。このフォームは入力チェックの動作を示すためのもので、入力内容は送信も保存もされません。</p>
-
     <form id="contact-form" action="/contact/" method="post" novalidate>
       <div class="form-row">
         <label for="f-type">お問い合わせ種別<span class="req">必須</span></label>
@@ -51,12 +49,12 @@ $(Get-PageHero 'お問い合わせ' '' 'Contact')
         <label for="f-agree" style="display:inline">個人情報の取り扱い(<a href="/privacy/">プライバシーポリシー</a>)に同意する<span class="req">必須</span></label>
         <p class="error-msg" id="f-agree-error" role="alert"></p>
       </div>
-      <button type="submit" class="btn">確認して送信(ダミー)</button>
+      <button type="submit" class="btn">確認して送信</button>
     </form>
 
     <div id="contact-done" class="notice" hidden tabindex="-1" role="status">
       <h2 style="font-size:1.2rem">入力内容を確認しました</h2>
-      <p>入力チェックはすべて通過しました。本サイトはデモのため、実際には送信されていません。</p>
+      <p>入力内容に不備はありませんでした。なお、このフォームからは、実際の送信は行われません。</p>
       <p><a href="/">トップページへ戻る</a></p>
     </div>
   </div>

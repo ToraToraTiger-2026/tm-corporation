@@ -11,7 +11,7 @@ $pgs += @{
   description = 'TMコーポレーション株式会社の取締役の氏名・役職・経歴・担当領域をご紹介します。'
   crumbs = @(@{ label = '企業情報'; href = '/company/' })
   body = @"
-$(Get-PageHero '役員紹介' '取締役の経歴と担当領域をご紹介します。(氏名・経歴はすべて架空です)' 'Executives')
+$(Get-PageHero '役員紹介' '取締役の経歴と担当領域をご紹介します。' 'Executives')
 <section class="section"><div class="container"><div class="grid cols-4">$cards</div></div></section>
 "@
 }

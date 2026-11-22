@@ -24,7 +24,7 @@ $(Get-PageHero '採用情報' '社会の基盤を支える仕事に、私たち�
   <div class="prose">
     <p>私たちは、金融・農業・ウェブ・ITという異なる分野の事業を通じて、社会の基盤を支えています。分野は違っても、共通しているのは、お客様と誠実に向き合い、信頼を積み重ねるという姿勢です。</p>
     <p>4つの事業の連携から、新しい価値が生まれています。皆さんの経験や視点を、ぜひ私たちの事業に活かしてください。一人ひとりの成長が、会社の成長につながると考えています。</p>
-    <p><strong>代表取締役社長 兼 CEO 森下 達彦</strong>(架空)</p>
+    <p><strong>代表取締役社長 兼 CEO 森下 達彦</strong></p>
   </div>
 </div></section>
 <section class="section soft"><div class="container">
@@ -59,7 +59,7 @@ $pgs += @{
   description = 'TMコーポレーション株式会社の募集職種(金融サービス、アグリビジネス、ウェブサービス運営、ITコンサルティング、コーポレート)の一覧です。'
   crumbs = $crumbR
   body = @"
-$(Get-PageHero '募集職種' '事業ごとの募集職種です。(本サイトは架空のため、実際の募集はありません)' 'Jobs')
+$(Get-PageHero '募集職種' '事業ごとの募集職種です。' 'Jobs')
 <section class="section"><div class="container">
   $(Get-RecruitNav '/recruit/jobs/')
   <div class="grid cols-2">$cards</div>
@@ -78,7 +78,7 @@ $pgs += @{
   description = 'TMコーポレーション株式会社の社員紹介です。所属部署、入社年度、仕事への思いをご紹介します。'
   crumbs = $crumbR
   body = @"
-$(Get-PageHero '社員紹介' '一緒に働く仲間をご紹介します。(氏名・内容はすべて架空です)' 'People')
+$(Get-PageHero '社員紹介' '一緒に働く仲間をご紹介します。' 'People')
 <section class="section"><div class="container">
   $(Get-RecruitNav '/recruit/people/')
   <div class="grid cols-3">$pcards</div>

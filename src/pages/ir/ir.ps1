@@ -14,7 +14,7 @@ $pgs += @{
   description = 'TMコーポレーション株式会社のIR情報(財務ハイライト、株式情報、IRカレンダー、IR資料室)をご案内します。'
   crumbs = @()
   body = @"
-$(Get-PageHero 'IR情報' '株主・投資家の皆様へ、経営成績や財務状況などの情報をお届けします。(数値はすべてデモ用のダミーです)' 'Investor Relations')
+$(Get-PageHero 'IR情報' '株主・投資家の皆様へ、経営成績や財務状況などの情報をお届けします。' 'Investor Relations')
 <section class="section"><div class="container">
   <div class="section-head"><p class="eyebrow">Highlights</p><h2>$(Esc $cur.fy) 連結業績</h2></div>
   <div class="grid cols-3">
@@ -65,7 +65,7 @@ $pgs += @{
   description = 'TMコーポレーション株式会社の連結業績の推移(売上高、営業利益、当期純利益)と事業別の売上高です。'
   crumbs = $crumbIr
   body = @"
-$(Get-PageHero '財務ハイライト' '連結業績の推移です。(数値はすべてデモ用のダミーです)' 'Financial Highlights')
+$(Get-PageHero '財務ハイライト' '連結業績の推移です。' 'Financial Highlights')
 <section class="section"><div class="container">
   <div class="grid cols-2">
     <div class="chart-box"><h3>売上高</h3><p class="unit">単位:億円</p>$(Get-BarChart $labels @($yrs | ForEach-Object { $_.sales }) '億円' $descSales)</div>
@@ -94,7 +94,7 @@ $pgs += @{
   description = 'TMコーポレーション株式会社の株式情報(基本情報、配当の推移、大株主の状況)です。'
   crumbs = $crumbIr
   body = @"
-$(Get-PageHero '株式情報' '株式の基本情報、配当、大株主の状況です。(すべて架空の内容です)' 'Stock Information')
+$(Get-PageHero '株式情報' '株式の基本情報、配当、大株主の状況です。' 'Stock Information')
 <section class="section"><div class="container">
   <h2>株式の基本情報</h2>
   <div class="table-wrap"><table class="data"><caption class="sr-only">株式の基本情報</caption><tbody>$basic</tbody></table></div>
@@ -144,15 +144,15 @@ $(Get-PageHero 'IRカレンダー' '決算発表や株主総会の予定です�
 # ---- Library ----
 $lib = ''
 foreach ($r in @($Data['ir-docs'])) {
-  $lib += "<tr><td><time datetime=`"$($r.date)`">$(Format-Date $r.date)</time></td><td><span class=`"tag`">$(Esc $r.category)</span></td><td>$(Esc $r.title)</td><td><a href=`"/downloads/$($r.file)`">PDF(ダミー)<span class=`"sr-only`">:$(Esc $r.title)</span></a></td></tr>"
+  $lib += "<tr><td><time datetime=`"$($r.date)`">$(Format-Date $r.date)</time></td><td><span class=`"tag`">$(Esc $r.category)</span></td><td>$(Esc $r.title)</td><td><a href=`"/downloads/$($r.file)`">PDF<span class=`"sr-only`">:$(Esc $r.title)</span></a></td></tr>"
 }
 $pgs += @{
   path = '/ir/library/'
   title = 'IR資料室'
-  description = 'TMコーポレーション株式会社の決算短信、決算説明資料、有価証券報告書などのIR資料(ダミー)を掲載しています。'
+  description = 'TMコーポレーション株式会社の決算短信、決算説明資料、有価証券報告書などのIR資料を掲載しています。'
   crumbs = $crumbIr
   body = @"
-$(Get-PageHero 'IR資料室' '決算短信、有価証券報告書などの資料です。(本サイトの資料はすべて内容のないダミーのPDFです)' 'IR Library')
+$(Get-PageHero 'IR資料室' '決算短信、有価証券報告書などの資料です。' 'IR Library')
 <section class="section"><div class="container">
   <div class="table-wrap"><table class="data">
     <caption class="sr-only">IR資料一覧</caption>

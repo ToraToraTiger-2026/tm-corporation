@@ -10,7 +10,7 @@ foreach ($b in @($Data['businesses'])) {
 @{
   path = '/'
   title = 'TMコーポレーション株式会社'
-  description = 'TMコーポレーション株式会社(架空の企業)の公式サイトです。金融サービス、アグリビジネス、ウェブサービス運営、ITコンサルティングの4事業を展開しています。'
+  description = 'TMコーポレーション株式会社の公式サイトです。金融サービス、アグリビジネス、ウェブサービス運営、ITコンサルティングの4事業を展開しています。'
   crumbs = $null
   body = @"
 <section class="hero"><div class="container hero-inner">
@@ -55,7 +55,7 @@ foreach ($b in @($Data['businesses'])) {
 </div></section>
 
 <section class="section soft"><div class="container">
-  <div class="section-head"><p class="eyebrow">IR Highlights</p><h2>IRハイライト</h2><p class="lead">$(Esc $cur.fy)の連結業績です(数値はデモ用のダミーです)。</p></div>
+  <div class="section-head"><p class="eyebrow">IR Highlights</p><h2>IRハイライト</h2><p class="lead">$(Esc $cur.fy)の連結業績です。</p></div>
   <div class="grid cols-3">
     <div class="kpi fade"><p class="kpi-label">売上高</p><p class="kpi-value">$(Format-Num $cur.sales)<span>億円</span></p><p class="kpi-diff">前期比 $(Format-Pct $cur.sales $prev.sales)</p></div>
     <div class="kpi fade"><p class="kpi-label">営業利益</p><p class="kpi-value">$(Format-Num $cur.op)<span>億円</span></p><p class="kpi-diff">前期比 $(Format-Pct $cur.op $prev.op)</p></div>

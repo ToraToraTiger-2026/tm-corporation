@@ -2,7 +2,7 @@ $c = $Site.company
 @{
   path = '/company/access/'
   title = 'アクセス'
-  description = 'TMコーポレーション株式会社 本社所在地とアクセスのご案内です(架空の住所です)。'
+  description = 'TMコーポレーション株式会社 本社所在地とアクセスのご案内です。'
   crumbs = @(@{ label = '企業情報'; href = '/company/' })
   body = @"
 $(Get-PageHero 'アクセス' '' 'Access')
@@ -14,10 +14,9 @@ $(Get-PageHero 'アクセス' '' 'Access')
       <p>電話:$(Esc $c.phone)</p>
       <h3>交通のご案内</h3>
       <ul>
-        <li>東京駅(架空の出口):徒歩5分</li>
+        <li>東京駅:徒歩5分</li>
         <li>二重橋前駅:徒歩3分</li>
       </ul>
-      <p class="notice">本サイトは架空の企業を題材にしたデモサイトです。住所・電話番号は実在しません。</p>
     </div>
     <svg viewBox="0 0 480 320" role="img" aria-label="本社周辺の略図(イメージ)" style="width:100%;border:1px solid var(--c-line);border-radius:6px;background:#F3F6FA">
       <path d="M0 200h480M0 110h480M120 0v320M330 0v320" stroke="#D9E1EC" stroke-width="14" fill="none"/>

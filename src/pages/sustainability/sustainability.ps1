@@ -25,7 +25,7 @@ $pgs += @{
   description = 'TMコーポレーション株式会社のサステナビリティの基本方針と、重要課題(マテリアリティ)をご紹介します。'
   crumbs = @()
   body = @"
-$(Get-PageHero 'サステナビリティ' '事業を通じて、社会と環境の持続可能性に貢献します。(数値はすべてデモ用のダミーです)' 'Sustainability')
+$(Get-PageHero 'サステナビリティ' '事業を通じて、社会と環境の持続可能性に貢献します。' 'Sustainability')
 <section class="section"><div class="container">
   $(Get-SubNav '/sustainability/')
   <div class="section-head"><p class="eyebrow">Policy</p><h2>基本方針</h2></div>

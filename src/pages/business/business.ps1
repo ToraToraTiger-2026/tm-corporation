@@ -31,7 +31,7 @@ $(Get-PageHero '事業紹介' '金融・農業・ウェブ・ITの4事業を展�
   </div>
 </div></section>
 <section class="section"><div class="container">
-  <div class="section-head"><p class="eyebrow">Sales by Segment</p><h2>事業別の売上高</h2><p class="lead">$(Esc $cur.fy)の連結売上高 $(Format-Num $cur.sales)億円の内訳です(ダミーデータ)。</p></div>
+  <div class="section-head"><p class="eyebrow">Sales by Segment</p><h2>事業別の売上高</h2><p class="lead">$(Esc $cur.fy)の連結売上高 $(Format-Num $cur.sales)億円の内訳です。</p></div>
   $(Get-ShareBars $segItems)
 </div></section>
 "@
@@ -56,7 +56,7 @@ for ($k = 0; $k -lt $biz.Count; $k++) {
   <p class="eyebrow">$(Esc $b.en)</p>
   <h1>$(Esc $b.name)</h1>
   <p class="lead">$(Esc $b.lead)</p>
-  <p style="margin:16px 0 0;color:var(--c-text-sub);font-size:.9rem">$(Esc $cur.fy)の売上高:$(Format-Num $sales)億円(ダミーデータ)</p>
+  <p style="margin:16px 0 0;color:var(--c-text-sub);font-size:.9rem">$(Esc $cur.fy)の売上高:$(Format-Num $sales)億円</p>
 </div></section>
 <section class="section"><div class="container">
   <div class="section-head"><p class="eyebrow">Services</p><h2>サービス内容</h2></div>
@@ -68,7 +68,7 @@ for ($k = 0; $k -lt $biz.Count; $k++) {
   <div class="grid cols-3">$str</div>
 </div></section>
 <section class="section"><div class="container">
-  <div class="section-head"><p class="eyebrow">Results</p><h2>実績</h2><p class="lead">数値はデモ用のダミーです。</p></div>
+  <div class="section-head"><p class="eyebrow">Results</p><h2>実績</h2></div>
   <div class="grid cols-3">$res</div>
 </div></section>
 <section class="section soft"><div class="container">
