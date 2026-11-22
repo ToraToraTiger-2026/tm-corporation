@@ -41,14 +41,14 @@ foreach ($b in @($Data['businesses'])) {
 </div></section>
 
 <section class="section soft"><div class="container">
-  <div class="section-head"><p class="eyebrow">Business</p><h2>事業紹介</h2><p class="lead">金融・農業・ウェブ・ITの4事業が連携し、グループ全体で価値を生み出します。</p></div>
+  <div class="section-head"><p class="eyebrow">Business</p><h2>事業紹介</h2><p class="lead">金融・農業・ウェブ・ITコンサルティングの4事業が連携し、グループ全体で価値を生み出します。</p></div>
   <div class="grid cols-4">$bizCards</div>
 </div></section>
 
 <section class="section"><div class="container">
   <div class="section-head"><p class="eyebrow">Group Strength</p><h2>4事業の連携による強み</h2></div>
   <div class="grid cols-3">
-    <div class="fade"><h3>農業 × IT</h3><p>にんにくやおかわかめの圃場のセンサーデータと、ITコンサルティングの分析手法を組み合わせ、収穫量や出荷時期の予測に活用しています。</p></div>
+    <div class="fade"><h3>農業 × ITコンサルティング</h3><p>にんにくやおかわかめの圃場のセンサーデータと、ITコンサルティングの分析手法を組み合わせ、収穫量や出荷時期の予測に活用しています。</p></div>
     <div class="fade"><h3>金融 × ウェブ</h3><p>「下戸マップ」に掲載されている飲食店へ、キャッシュレス決済の導入や設備資金のご案内を行い、事業者を支援します。</p></div>
     <div class="fade"><h3>農業 × 金融</h3><p>契約農家の設備投資や運転資金を金融サービスで支え、安定した生産と販路づくりにつなげます。</p></div>
   </div>

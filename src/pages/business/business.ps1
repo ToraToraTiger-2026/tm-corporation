@@ -20,12 +20,12 @@ $pgs += @{
   description = 'TMコーポレーション株式会社の4つの事業(金融サービス、アグリビジネス、ウェブサービス運営、ITコンサルティング)と、事業間の連携による強みをご紹介します。'
   crumbs = @()
   body = @"
-$(Get-PageHero '事業紹介' '金融・農業・ウェブ・ITの4事業を展開しています。それぞれの専門性に加え、事業間の連携が私たちの強みです。' 'Business')
+$(Get-PageHero '事業紹介' '金融・農業・ウェブ・ITコンサルティングの4事業を展開しています。それぞれの専門性に加え、事業間の連携が私たちの強みです。' 'Business')
 <section class="section"><div class="container"><div class="grid cols-2">$cards</div></div></section>
 <section class="section soft"><div class="container">
   <div class="section-head"><p class="eyebrow">Group Strength</p><h2>4事業の連携による強み</h2></div>
   <div class="grid cols-3">
-    <div><h3>農業 × IT</h3><p>にんにくやおかわかめの圃場のセンサーデータと、ITコンサルティングの分析手法を組み合わせ、収穫量や出荷時期の予測に活用しています。</p></div>
+    <div><h3>農業 × ITコンサルティング</h3><p>にんにくやおかわかめの圃場のセンサーデータと、ITコンサルティングの分析手法を組み合わせ、収穫量や出荷時期の予測に活用しています。</p></div>
     <div><h3>金融 × ウェブ</h3><p>「下戸マップ」に掲載されている飲食店へ、キャッシュレス決済の導入や設備資金のご案内を行っています。</p></div>
     <div><h3>農業 × 金融</h3><p>契約農家の設備投資や運転資金を金融サービスで支え、安定した生産と販路づくりにつなげています。</p></div>
   </div>
