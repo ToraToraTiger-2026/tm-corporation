@@ -17,7 +17,7 @@ foreach ($b in @($Data['businesses'])) {
   <div>
     <p class="eyebrow" style="color:#BBD3F6">TM Corporation</p>
     <h1>信頼を礎に、<br>暮らしと産業の未来を育てる。</h1>
-    <p>金融、農業、ウェブ、IT。4つの事業を通じて、社会の基盤を支え、持続的な成長に貢献します。</p>
+    <p>金融、農業、ウェブ、ITコンサルティング。4つの事業を通じて、社会の基盤を支え、持続的な成長に貢献します。</p>
     <p style="margin-top:32px"><a class="btn on-dark" href="/business/">事業紹介を見る</a> <a class="btn outline" style="background:transparent;color:#fff;border-color:#fff" href="/ir/">IR情報</a></p>
   </div>
   <svg class="hero-visual" viewBox="0 0 360 300" role="img" aria-label="4つの事業を表すイメージ図">
