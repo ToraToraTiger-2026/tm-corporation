@@ -25,8 +25,8 @@ $(Get-PageHero '事業紹介' '金融・農業・ウェブ・ITの4事業を展�
 <section class="section soft"><div class="container">
   <div class="section-head"><p class="eyebrow">Group Strength</p><h2>4事業の連携による強み</h2></div>
   <div class="grid cols-3">
-    <div><h3>農業 × IT</h3><p>圃場のセンサーデータと、ITコンサルティングの分析手法を組み合わせ、収穫量や出荷時期の予測に活用しています。</p></div>
-    <div><h3>金融 × ウェブ</h3><p>ウェブサービスの取引データと電子決済を連携させ、加盟店の売上の動きに合わせた資金繰りの提案を行っています。</p></div>
+    <div><h3>農業 × IT</h3><p>にんにくやおかわかめの圃場のセンサーデータと、ITコンサルティングの分析手法を組み合わせ、収穫量や出荷時期の予測に活用しています。</p></div>
+    <div><h3>金融 × ウェブ</h3><p>「下戸マップ」に掲載されている飲食店へ、キャッシュレス決済の導入や設備資金のご案内を行っています。</p></div>
     <div><h3>農業 × 金融</h3><p>契約農家の設備投資や運転資金を金融サービスで支え、安定した生産と販路づくりにつなげています。</p></div>
   </div>
 </div></section>
@@ -42,6 +42,8 @@ for ($k = 0; $k -lt $biz.Count; $k++) {
   $svc = ''; foreach ($s in @($b.services)) { $svc += "<div class=`"card $($b.class)`"><h3>$(Esc $s.title)</h3><p>$(Esc $s.text)</p></div>" }
   $str = ''; foreach ($s in @($b.strengths)) { $str += "<div><h3>$(Esc $s.title)</h3><p>$(Esc $s.text)</p></div>" }
   $res = ''; foreach ($r in @($b.results)) { $res += "<div class=`"kpi`"><p class=`"kpi-label`">$(Esc $r.label)</p><p class=`"kpi-value`">$(Esc $r.value)<span>$(Esc $r.unit)</span></p></div>" }
+  $extLink = ''
+  if ($b.link) { $extLink = "<p style=`"margin-top:32px`"><a class=`"btn outline`" href=`"$(Esc $b.link.url)`" target=`"_blank`" rel=`"noopener noreferrer`">$(Esc $b.link.label)<span class=`"sr-only`">(外部サイト・新しいタブで開きます)</span><svg width=`"14`" height=`"14`" viewBox=`"0 0 14 14`" aria-hidden=`"true`"><path d=`"M5 2H2v10h10V9M8 2h4v4M12 2L6 8`" fill=`"none`" stroke=`"currentColor`" stroke-width=`"1.6`"/></svg></a></p>" }
   $others = ''; foreach ($o in $biz) { if ($o.slug -ne $b.slug) { $others += "<li><a href=`"/business/$($o.slug)/`">$(Esc $o.name)</a></li>" } }
   $sales = @($fin.segments)[$k].sales
   $pgs += @{
@@ -59,6 +61,7 @@ for ($k = 0; $k -lt $biz.Count; $k++) {
 <section class="section"><div class="container">
   <div class="section-head"><p class="eyebrow">Services</p><h2>サービス内容</h2></div>
   <div class="grid cols-3">$svc</div>
+  $extLink
 </div></section>
 <section class="section soft"><div class="container">
   <div class="section-head"><p class="eyebrow">Strengths</p><h2>強み</h2></div>

@@ -53,6 +53,8 @@ $(Get-PageHero 'IRニュース' '' 'IR News')
 
 # ---- Financials ----
 $labels = @($yrs | ForEach-Object { $_.fy -replace '^20(\d\d)年3月期$', '$1/3' })
+$descSales = '売上高の推移(億円)。' + ((@($yrs | ForEach-Object { $_.fy + (Format-Num $_.sales) })) -join '、') + '。'
+$descOp = '営業利益の推移(億円)。' + ((@($yrs | ForEach-Object { $_.fy + (Format-Num $_.op) })) -join '、') + '。'
 $tbody = ''
 foreach ($y in $yrs) { $tbody += "<tr><th scope=`"row`">$(Esc $y.fy)</th><td class=`"num`">$(Format-Num $y.sales)</td><td class=`"num`">$(Format-Num $y.op)</td><td class=`"num`">$(Format-Num $y.net)</td></tr>" }
 $segItems = @()
@@ -66,8 +68,8 @@ $pgs += @{
 $(Get-PageHero '財務ハイライト' '連結業績の推移です。(数値はすべてデモ用のダミーです)' 'Financial Highlights')
 <section class="section"><div class="container">
   <div class="grid cols-2">
-    <div class="chart-box"><h3>売上高</h3><p class="unit">単位:億円</p>$(Get-BarChart $labels @($yrs | ForEach-Object { $_.sales }) '億円' '売上高の推移(億円)。2022年3月期1,820、2023年3月期1,960、2024年3月期2,090、2025年3月期2,210、2026年3月期2,350。')</div>
-    <div class="chart-box"><h3>営業利益</h3><p class="unit">単位:億円</p>$(Get-BarChart $labels @($yrs | ForEach-Object { $_.op }) '億円' '営業利益の推移(億円)。2022年3月期168、2023年3月期195、2024年3月期221、2025年3月期243、2026年3月期260。')</div>
+    <div class="chart-box"><h3>売上高</h3><p class="unit">単位:億円</p>$(Get-BarChart $labels @($yrs | ForEach-Object { $_.sales }) '億円' $descSales)</div>
+    <div class="chart-box"><h3>営業利益</h3><p class="unit">単位:億円</p>$(Get-BarChart $labels @($yrs | ForEach-Object { $_.op }) '億円' $descOp)</div>
   </div>
   <div class="table-wrap" style="margin-top:40px"><table class="data">
     <caption>連結業績の推移(単位:億円)</caption>

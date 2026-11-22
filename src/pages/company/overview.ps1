@@ -19,7 +19,7 @@ $(Get-PageHero '会社概要' '' 'Overview')
       <tr><th scope="row">決算期</th><td>3月31日</td></tr>
       <tr><th scope="row">代表者</th><td>代表取締役社長 兼 CEO 青江 誠一郎(架空)</td></tr>
       <tr><th scope="row">本社所在地</th><td>$(Esc $c.address)</td></tr>
-      <tr><th scope="row">事業内容</th><td>金融サービス、アグリビジネス、ウェブサービス運営、ITコンサルティング</td></tr>
+      <tr><th scope="row">事業内容</th><td>金融サービス/アグリビジネス(にんにく・おかわかめの栽培、加工品の販売)/ウェブサービス運営(「下戸マップ」の運営)/ITコンサルティング</td></tr>
     </tbody>
   </table></div>
   <p style="margin-top:16px;color:var(--c-text-sub);font-size:.9rem">※ 本サイトは架空の企業を題材にしたデモサイトです。記載の内容はすべて架空のものです。</p>
