@@ -17,7 +17,7 @@ $(Get-PageHero '会社概要' '' 'Overview')
       <tr><th scope="row">従業員数</th><td>$(Esc $c.employees)</td></tr>
       <tr><th scope="row">売上高</th><td>$(Esc $c.sales)</td></tr>
       <tr><th scope="row">決算期</th><td>3月31日</td></tr>
-      <tr><th scope="row">代表者</th><td>代表取締役社長 兼 CEO 青江 誠一郎(架空)</td></tr>
+      <tr><th scope="row">代表者</th><td>代表取締役社長 兼 CEO 森下 達也(架空)</td></tr>
       <tr><th scope="row">本社所在地</th><td>$(Esc $c.address)</td></tr>
       <tr><th scope="row">事業内容</th><td>金融サービス/アグリビジネス(にんにく・おかわかめの栽培、加工品の販売)/ウェブサービス運営(「下戸マップ」の運営)/ITコンサルティング</td></tr>
     </tbody>
