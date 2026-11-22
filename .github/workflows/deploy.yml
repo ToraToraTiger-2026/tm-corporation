@@ -1,0 +1,53 @@
+# OPTIONAL: only needed if you publish with "Source = GitHub Actions".
+# If you publish the committed docs/ folder (Source = Deploy from a branch, /docs), this workflow is not used.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    # build.ps1 is developed and tested with Windows PowerShell 5.1,
+    # so the build runs on a Windows runner with the same shell.
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build site
+        shell: powershell
+        env:
+          STRICT_LINKS: '1'   # fail the build when an internal link is broken
+        run: |
+          # Relative links are generated, so only the public URL is needed (for canonical / OGP / sitemap / 404).
+          ./build.ps1 -SiteUrl '${{ steps.pages.outputs.base_url }}' -Out dist
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

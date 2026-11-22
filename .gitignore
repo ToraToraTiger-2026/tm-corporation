@@ -1,0 +1,4 @@
+# docs/ is the published site and is committed. dist/ is only for temporary / Actions builds.
+dist/
+tmpcheck/
+*.log

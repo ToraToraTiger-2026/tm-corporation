@@ -1,0 +1,55 @@
+{
+  "company": {
+    "name": "TMコーポレーション株式会社",
+    "nameEn": "TM Corporation",
+    "code": "9999",
+    "market": "東証プライム",
+    "founded": "1968年4月",
+    "capital": "128億円",
+    "employees": "4,213名(連結)",
+    "sales": "2,350億円(2026年3月期・連結)",
+    "address": "東京都千代田区丸の内○丁目○番○号 TMタワー(架空の住所です)",
+    "phone": "03-0000-0000(架空)"
+  },
+  "nav": [
+    { "label": "企業情報", "href": "/company/", "children": [
+      { "label": "企業理念", "href": "/company/philosophy/" },
+      { "label": "会社概要", "href": "/company/overview/" },
+      { "label": "沿革", "href": "/company/history/" },
+      { "label": "役員紹介", "href": "/company/executives/" },
+      { "label": "アクセス", "href": "/company/access/" }
+    ]},
+    { "label": "事業紹介", "href": "/business/", "children": [
+      { "label": "金融サービス", "href": "/business/finance/" },
+      { "label": "アグリビジネス", "href": "/business/agri/" },
+      { "label": "ウェブサービス運営", "href": "/business/web/" },
+      { "label": "ITコンサルティング", "href": "/business/consulting/" }
+    ]},
+    { "label": "IR情報", "href": "/ir/", "children": [
+      { "label": "IRニュース", "href": "/ir/news/" },
+      { "label": "財務ハイライト", "href": "/ir/financials/" },
+      { "label": "株式情報", "href": "/ir/stock/" },
+      { "label": "IRカレンダー", "href": "/ir/calendar/" },
+      { "label": "IR資料室", "href": "/ir/library/" }
+    ]},
+    { "label": "サステナビリティ", "href": "/sustainability/", "children": [
+      { "label": "基本方針", "href": "/sustainability/" },
+      { "label": "環境(E)", "href": "/sustainability/environment/" },
+      { "label": "社会(S)", "href": "/sustainability/social/" },
+      { "label": "ガバナンス(G)", "href": "/sustainability/governance/" }
+    ]},
+    { "label": "ニュース", "href": "/news/" },
+    { "label": "採用情報", "href": "/recruit/", "children": [
+      { "label": "メッセージ", "href": "/recruit/" },
+      { "label": "募集職種", "href": "/recruit/jobs/" },
+      { "label": "社員紹介", "href": "/recruit/people/" }
+    ]},
+    { "label": "お問い合わせ", "href": "/contact/" }
+  ],
+  "footerLinks": [
+    { "label": "プライバシーポリシー", "href": "/privacy/" },
+    { "label": "サイトポリシー", "href": "/site-policy/" },
+    { "label": "サイトマップ", "href": "/sitemap/" },
+    { "label": "お問い合わせ", "href": "/contact/" }
+  ]
+}
