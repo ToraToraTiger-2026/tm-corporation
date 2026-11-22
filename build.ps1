@@ -100,7 +100,7 @@ foreach ($p in $Pages) {
   if ($p.crumbs) { $crumbs = Get-Breadcrumb $p.crumbs $p.title }
   $headerNav = Get-HeaderNav $path
   $canonical = $SiteUrl + $BasePath + $path
-  $ogImage = $SiteUrl + $BasePath + '/assets/images/og-default.svg'
+  $ogImage = $SiteUrl + $BasePath + '/assets/images/og-default.png'
   $robots = ''
   if ($p.noindex) { $robots = '<meta name="robots" content="noindex">' }
   $fullTitle = if ($path -eq '/') { $Site.company.name } else { $p.title + ' | ' + $Site.company.name }

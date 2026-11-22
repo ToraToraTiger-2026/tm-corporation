@@ -142,7 +142,7 @@ tm-corporation/
 ## 7. 既知の制限
 
 - **EN(英語版)**は未実装です。ヘッダーに「準備中」の枠のみあります。
-- **OGP画像**(`src/assets/images/og-default.svg`)は SVG のため、SNS によっては表示されません。公開前に PNG(1200×630)に差し替え、`src/templates/layout.html` と `build.ps1` の参照を更新してください。
+- **OGP画像**は `src/assets/images/og-default.png`(1200×630)です。差し替える場合は、同じ名前・サイズで上書きしてください。SNS 側は画像を保存(キャッシュ)するため、更新後すぐには反映されない場合があります。
 - 文字は **Google Fonts**(Noto Sans JP)を外部から読み込みます(プライバシーポリシーにも記載)。外部通信を避けたい場合は、フォントを `src/assets/` に配置して `layout.html` を修正します。
 - IR資料のPDFは中身のないダミーです。
 - お問い合わせフォームは入力チェックのみで、送信しません。
