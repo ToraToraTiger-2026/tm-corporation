@@ -42,7 +42,8 @@
     { "label": "採用情報", "href": "/recruit/", "children": [
       { "label": "メッセージ", "href": "/recruit/" },
       { "label": "募集職種", "href": "/recruit/jobs/" },
-      { "label": "社員紹介", "href": "/recruit/people/" }
+      { "label": "社員紹介", "href": "/recruit/people/" },
+      { "label": "プロジェクトストーリー", "href": "/recruit/project-story/" }
     ]},
     { "label": "お問い合わせ", "href": "/contact/" }
   ],

@@ -4,7 +4,7 @@ $pgs = @()
 $crumbR = @(@{ label = '採用情報'; href = '/recruit/' })
 
 function Get-RecruitNav([string]$active) {
-  $items = @(@('メッセージ', '/recruit/'), @('募集職種', '/recruit/jobs/'), @('社員紹介', '/recruit/people/'))
+  $items = @(@('メッセージ', '/recruit/'), @('募集職種', '/recruit/jobs/'), @('社員紹介', '/recruit/people/'), @('プロジェクトストーリー', '/recruit/project-story/'))
   $li = ''
   foreach ($i in $items) { $cur = if ($i[1] -eq $active) { ' aria-current="page"' } else { '' }; $li += "<li><a href=`"$($i[1])`"$cur>$(Esc $i[0])</a></li>" }
   return "<nav aria-label=`"採用情報内のページ`"><ul class=`"filter`">$li</ul></nav>"
@@ -43,6 +43,13 @@ $(Get-PageHero '採用情報' '社会の基盤を支える仕事に、私たち�
     <div><h3>育児・介護との両立</h3><p>男性の育児休業取得率は<span data-dyn-text="parental">62</span>%です。短時間勤務などの制度も整えています。</p></div>
   </div>
   <p style="margin-top:32px"><a class="btn" href="/recruit/jobs/">募集職種を見る</a> <a class="btn outline" href="/recruit/people/">社員紹介を見る</a></p>
+</div></section>
+<section class="section soft"><div class="container">
+  <div class="section-head"><p class="eyebrow">Project Story</p><h2>プロジェクトストーリー</h2><p class="lead">社員が取り組んだプロジェクトの、うまくいったことも、いかなかったことも。</p></div>
+  <div class="grid cols-2">
+    $(foreach ($st in @(Get-StoryList)) { "<a class=`"banner ps-banner ps-$($st.class)`" href=`"/recruit/project-story/$($st.slug)/`"><p class=`"eyebrow`" style=`"color:#BBD3F6`">STORY $(Esc $st.number) / $(Esc $st.business)</p><h3>$(Esc $st.catch)</h3><p>$(Get-StoryNames $st)</p></a>" })
+  </div>
+  <p style="margin-top:28px"><a class="more-link" href="/recruit/project-story/">プロジェクトストーリー一覧を見る</a></p>
 </div></section>
 "@
 }
@@ -106,6 +113,7 @@ foreach ($e in $emps) {
       </tbody></table>
       <h2>メッセージ</h2>
       <p>$(Esc $e.message)</p>
+      $(Get-PersonStories $e.slug)
       <p style="margin-top:32px"><a class="more-link" href="/recruit/people/">社員紹介一覧に戻る</a></p>
     </div>
   </div>
