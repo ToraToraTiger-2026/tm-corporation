@@ -33,6 +33,17 @@ function Get-StoryArt([string]$class) {
 '@
 }
 
+# Photo set in stories.json ("thumb", file in src/assets/images/, 16:9 recommended). Used for the list card and the article hero.
+function Test-StoryThumb($story) {
+  return [bool]($story.thumb -and (Test-Path (Join-Path $Root ('src/assets/images/' + $story.thumb))))
+}
+
+function Get-StoryThumbImg($story, [string]$class, [bool]$eager) {
+  $pos = if ($story.thumbPos) { " style=`"object-position:$(Esc $story.thumbPos)`"" } else { '' }
+  $load = if ($eager) { 'fetchpriority="high"' } else { 'loading="lazy"' }
+  return "<img class=`"$class`" src=`"/assets/images/$($story.thumb)`" alt=`"$(Esc $story.thumbAlt)`" width=`"1672`" height=`"941`" $load decoding=`"async`"$pos>"
+}
+
 function Get-StoryFaces($story) {
   $n = @($story.people).Count
   $h = ''
@@ -63,10 +74,11 @@ function Get-StoryCard($story, [int]$index) {
   }
   $kw = ''; foreach ($k in @($story.keywords)) { $kw += "<li>$(Esc $k)</li>" }
   # Thumbnail: a photo in src/assets/images/ (16:9 recommended) when set in stories.json; otherwise SVG art + portraits.
-  $hasPhoto = $story.thumb -and (Test-Path (Join-Path $Root ('src/assets/images/' + $story.thumb)))
+  $hasPhoto = Test-StoryThumb $story
   if ($hasPhoto) {
     $visualCls = 'ps-card-visual has-photo'
-    $visual = "<img class=`"ps-thumb`" src=`"/assets/images/$($story.thumb)`" alt=`"$(Esc $story.thumbAlt)`" width=`"1672`" height=`"941`" loading=`"lazy`">"
+    $visual = Get-StoryThumbImg $story 'ps-thumb' $false
+    $rev += ' photo-card'
   } else {
     $visualCls = 'ps-card-visual'
     $visual = "$(Get-StoryArt $story.class)$(Get-StoryFaces $story)"

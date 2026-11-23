@@ -42,6 +42,14 @@ for ($idx = 0; $idx -lt $count; $idx++) {
     $secs += Get-StorySection $sec $s $no
   }
   $kw = ''; foreach ($k in @($s.keywords)) { $kw += "<li>$(Esc $k)</li>" }
+  # Hero: the story photo when available (same file as the list thumbnail), otherwise SVG art + portraits.
+  if (Test-StoryThumb $s) {
+    $heroCls = ' has-photo'; $heroVisual = ''
+    $heroPhoto = "<div class=`"ps-hero-photo`">$(Get-StoryThumbImg $s 'ps-hero-img' $true)</div>"
+  } else {
+    $heroCls = ''; $heroPhoto = ''
+    $heroVisual = "<div class=`"ps-hero-visual`">$(Get-StoryArt $s.class)$(Get-StoryFaces $s)</div>"
+  }
   $next = ''
   if ($count -gt 1) {
     $next = @"
@@ -61,7 +69,7 @@ for ($idx = 0; $idx -lt $count; $idx++) {
     crumbs = $crumbS
     body = @"
 <div class="ps-page ps-$($s.class)">
-<section class="ps-hero ps-$($s.class)"><div class="container ps-hero-inner">
+<section class="ps-hero ps-$($s.class)$heroCls"><div class="container ps-hero-inner">
   <div class="ps-hero-text">
     <p class="ps-hero-eyebrow">PROJECT STORY <b>$(Esc $s.number)</b></p>
     <p class="ps-biz">$(Esc $s.business)</p>
@@ -69,11 +77,10 @@ for ($idx = 0; $idx -lt $count; $idx++) {
     <p class="ps-hero-lead">$(Esc $s.lead)</p>
     <ul class="ps-keywords on-dark">$kw</ul>
   </div>
-  <div class="ps-hero-visual">
-    $(Get-StoryArt $s.class)
-    $(Get-StoryFaces $s)
-  </div>
-</div></section>
+  $heroVisual
+</div>
+$heroPhoto
+</section>
 <section class="ps-meta"><div class="container"><dl>
   <div><dt>事業</dt><dd><a href="$($s.businessHref)">$(Esc $s.business)</a></dd></div>
   <div><dt>プロジェクト</dt><dd>$(Esc $s.project)</dd></div>
