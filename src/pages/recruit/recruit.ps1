@@ -40,7 +40,7 @@ $(Get-PageHero '採用情報' '社会の基盤を支える仕事に、私たち�
   <div class="grid cols-3">
     <div><h3>事業をまたぐ成長機会</h3><p>4つの事業をまたぐ異動や研修の機会があります。</p></div>
     <div><h3>柔軟な働き方</h3><p>職種に応じて、在宅勤務やフレックスタイム制度を利用できます。</p></div>
-    <div><h3>育児・介護との両立</h3><p>男性の育児休業取得率は62%です。短時間勤務などの制度も整えています。</p></div>
+    <div><h3>育児・介護との両立</h3><p>男性の育児休業取得率は<span data-dyn-text="parental">62</span>%です。短時間勤務などの制度も整えています。</p></div>
   </div>
   <p style="margin-top:32px"><a class="btn" href="/recruit/jobs/">募集職種を見る</a> <a class="btn outline" href="/recruit/people/">社員紹介を見る</a></p>
 </div></section>
@@ -50,7 +50,8 @@ $(Get-PageHero '採用情報' '社会の基盤を支える仕事に、私たち�
 # ---- Jobs ----
 $cards = ''
 foreach ($j in $jobs) {
-  $reqs = ''; foreach ($r in @($j.requirements)) { $reqs += "<li>$(Esc $r)</li>" }
+  # the graduation year in the requirements follows the viewing date (see dyn-core.js recruit())
+  $reqs = ''; foreach ($r in @($j.requirements)) { $reqs += ("<li>$(Esc $r)</li>" -replace '(20\d\d)(年3月卒業見込み)', '<span data-dyn-text="gradYear">$1</span>$2') }
   $cards += "<div class=`"card $($j.class)`"><p class=`"eyebrow`">$(Esc $j.business)</p><h3>$(Esc $j.title)</h3><p>$(Esc $j.summary)</p><ul class=`"checklist`">$reqs</ul><p style=`"font-size:.85rem;margin:0 0 16px`">区分:$(Esc $j.type)/勤務地:$(Esc $j.place)</p><a class=`"more-link`" href=`"/contact/`">お問い合わせ・エントリー<span class=`"sr-only`">($(Esc $j.title))</span></a></div>"
 }
 $pgs += @{

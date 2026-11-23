@@ -16,8 +16,8 @@ $pgs += @{
   body = @"
 $(Get-PageHero 'IR情報' '株主・投資家の皆様へ、経営成績や財務状況などの情報をお届けします。' 'Investor Relations')
 <section class="section"><div class="container">
-  <div class="section-head"><p class="eyebrow">Highlights</p><h2>$(Esc $cur.fy) 連結業績</h2></div>
-  <div class="grid cols-3">
+  <div class="section-head"><p class="eyebrow">Highlights</p><h2><span data-dyn-text="latestFY">$(Esc $cur.fy)</span> 連結業績</h2></div>
+  <div class="grid cols-3" data-dyn="kpi">
     <div class="kpi"><p class="kpi-label">売上高</p><p class="kpi-value">$(Format-Num $cur.sales)<span>億円</span></p><p class="kpi-diff">前期比 $(Format-Pct $cur.sales $prev.sales)</p></div>
     <div class="kpi"><p class="kpi-label">営業利益</p><p class="kpi-value">$(Format-Num $cur.op)<span>億円</span></p><p class="kpi-diff">前期比 $(Format-Pct $cur.op $prev.op)</p></div>
     <div class="kpi"><p class="kpi-label">親会社株主に帰属する当期純利益</p><p class="kpi-value">$(Format-Num $cur.net)<span>億円</span></p><p class="kpi-diff">前期比 $(Format-Pct $cur.net $prev.net)</p></div>
@@ -34,7 +34,7 @@ $(Get-PageHero 'IR情報' '株主・投資家の皆様へ、経営成績や財�
 </div></section>
 <section class="section"><div class="container">
   <div class="section-head" style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:12px"><div><p class="eyebrow">IR News</p><h2 style="margin:0">最新のIRニュース</h2></div><a class="more-link" href="/ir/news/">一覧を見る</a></div>
-  $(Get-NewsList ($irNews | Select-Object -First 3))
+  $(Get-NewsList ($irNews | Select-Object -First 3) 'IR' 3)
 </div></section>
 "@
 }
@@ -47,7 +47,7 @@ $pgs += @{
   crumbs = $crumbIr
   body = @"
 $(Get-PageHero 'IRニュース' '' 'IR News')
-<section class="section"><div class="container">$(Get-NewsList $irNews)</div></section>
+<section class="section"><div class="container">$(Get-NewsList $irNews 'IR')</div></section>
 "@
 }
 
@@ -67,18 +67,18 @@ $pgs += @{
   body = @"
 $(Get-PageHero '財務ハイライト' '連結業績の推移です。' 'Financial Highlights')
 <section class="section"><div class="container">
-  <div class="grid cols-2">
+  <div class="grid cols-2" data-dyn="fin-charts">
     <div class="chart-box"><h3>売上高</h3><p class="unit">単位:億円</p>$(Get-BarChart $labels @($yrs | ForEach-Object { $_.sales }) '億円' $descSales)</div>
     <div class="chart-box"><h3>営業利益</h3><p class="unit">単位:億円</p>$(Get-BarChart $labels @($yrs | ForEach-Object { $_.op }) '億円' $descOp)</div>
   </div>
   <div class="table-wrap" style="margin-top:40px"><table class="data">
     <caption>連結業績の推移(単位:億円)</caption>
     <thead><tr><th scope="col">決算期</th><th scope="col" class="num">売上高</th><th scope="col" class="num">営業利益</th><th scope="col" class="num">親会社株主に帰属する当期純利益</th></tr></thead>
-    <tbody>$tbody</tbody>
+    <tbody data-dyn="fin-table">$tbody</tbody>
   </table></div>
 </div></section>
 <section class="section soft"><div class="container">
-  <div class="section-head"><p class="eyebrow">Sales by Segment</p><h2>事業別の売上高($(Esc $cur.fy))</h2></div>
+  <div class="section-head"><p class="eyebrow">Sales by Segment</p><h2>事業別の売上高(<span data-dyn-text="latestFY">$(Esc $cur.fy)</span>)</h2></div>
   $(Get-ShareBars $segItems)
 </div></section>
 "@
@@ -97,14 +97,14 @@ $pgs += @{
 $(Get-PageHero '株式情報' '株式の基本情報、配当、大株主の状況です。' 'Stock Information')
 <section class="section"><div class="container">
   <h2>株式の基本情報</h2>
-  <div class="table-wrap"><table class="data"><caption class="sr-only">株式の基本情報</caption><tbody>$basic</tbody></table></div>
+  <div class="table-wrap"><table class="data"><caption class="sr-only">株式の基本情報</caption><tbody data-dyn="stock-basic">$basic</tbody></table></div>
 </div></section>
 <section class="section soft"><div class="container">
   <h2>配当の推移</h2>
   <div class="table-wrap"><table class="data">
     <caption class="sr-only">配当の推移</caption>
     <thead><tr><th scope="col">決算期</th><th scope="col" class="num">1株当たり当期純利益(円)</th><th scope="col" class="num">1株当たり配当金(円)</th><th scope="col" class="num">配当性向</th></tr></thead>
-    <tbody>$div</tbody>
+    <tbody data-dyn="stock-div">$div</tbody>
   </table></div>
 </div></section>
 <section class="section"><div class="container">
@@ -135,7 +135,7 @@ $(Get-PageHero 'IRカレンダー' '決算発表や株主総会の予定です�
   <div class="table-wrap"><table class="data">
     <caption class="sr-only">IRカレンダー</caption>
     <thead><tr><th scope="col">日付</th><th scope="col">内容</th><th scope="col">状況</th></tr></thead>
-    <tbody>$cal</tbody>
+    <tbody data-dyn="calendar">$cal</tbody>
   </table></div>
 </div></section>
 "@
@@ -157,8 +157,9 @@ $(Get-PageHero 'IR資料室' '決算短信、有価証券報告書などの資�
   <div class="table-wrap"><table class="data">
     <caption class="sr-only">IR資料一覧</caption>
     <thead><tr><th scope="col">公表日</th><th scope="col">区分</th><th scope="col">資料名</th><th scope="col">ダウンロード</th></tr></thead>
-    <tbody>$lib</tbody>
+    <tbody data-dyn="docs">$lib</tbody>
   </table></div>
+  <p style="margin-top:16px;font-size:.85rem;color:var(--c-text-sub)">※ ダウンロードできるPDFは、デモ用のサンプル資料です。</p>
 </div></section>
 "@
 }

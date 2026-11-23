@@ -37,7 +37,7 @@ foreach ($b in @($Data['businesses'])) {
     <div><p class="eyebrow">News</p><h2 style="margin:0">お知らせ</h2></div>
     <a class="more-link" href="/news/">一覧を見る</a>
   </div>
-  $(Get-NewsList $news)
+  $(Get-NewsList $news '' 5)
 </div></section>
 
 <section class="section soft"><div class="container">
@@ -55,8 +55,8 @@ foreach ($b in @($Data['businesses'])) {
 </div></section>
 
 <section class="section soft"><div class="container">
-  <div class="section-head"><p class="eyebrow">IR Highlights</p><h2>IRハイライト</h2><p class="lead">$(Esc $cur.fy)の連結業績です。</p></div>
-  <div class="grid cols-3">
+  <div class="section-head"><p class="eyebrow">IR Highlights</p><h2>IRハイライト</h2><p class="lead"><span data-dyn-text="latestFY">$(Esc $cur.fy)</span>の連結業績です。</p></div>
+  <div class="grid cols-3" data-dyn="kpi" data-fade="1">
     <div class="kpi fade"><p class="kpi-label">売上高</p><p class="kpi-value">$(Format-Num $cur.sales)<span>億円</span></p><p class="kpi-diff">前期比 $(Format-Pct $cur.sales $prev.sales)</p></div>
     <div class="kpi fade"><p class="kpi-label">営業利益</p><p class="kpi-value">$(Format-Num $cur.op)<span>億円</span></p><p class="kpi-diff">前期比 $(Format-Pct $cur.op $prev.op)</p></div>
     <div class="kpi fade"><p class="kpi-label">親会社株主に帰属する当期純利益</p><p class="kpi-value">$(Format-Num $cur.net)<span>億円</span></p><p class="kpi-diff">前期比 $(Format-Pct $cur.net $prev.net)</p></div>

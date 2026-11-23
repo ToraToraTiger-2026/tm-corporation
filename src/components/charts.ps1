@@ -32,5 +32,5 @@ function Get-ShareBars($items) {
     $pct = [math]::Round($i.sales / $total * 100, 1)
     $rows += "<div class=`"share-row`"><span class=`"share-name`">$(Esc $i.name)</span><span class=`"share-track`" aria-hidden=`"true`"><span class=`"share-bar $($i.class)`" style=`"width:$pct%`"></span></span><span class=`"share-val`">$(Format-Num $i.sales)億円(${pct}%)</span></div>"
   }
-  return "<div class=`"share`">$rows</div>"
+  return "<div class=`"share`" data-dyn=`"fin-seg`">$rows</div>"
 }

@@ -18,7 +18,7 @@ $(Get-PageHero 'ニュース' '当社からのお知らせやプレスリリー�
 
 foreach ($cat in Get-NewsCategories) {
   $subset = @($all | Where-Object { $_.category -eq $cat.label })
-  $listHtml = if ($subset.Count -gt 0) { Get-NewsList $subset } else { '<p>該当するニュースはありません。</p>' }
+  $listHtml = Get-NewsList $subset $cat.label
   $pgs += @{
     path = "/news/category/$($cat.slug)/"
     title = "ニュース(" + $cat.label + ")"
@@ -32,6 +32,22 @@ $(Get-PageHero ('ニュース:' + $cat.label) '' 'News')
 </div></section>
 "@
   }
+}
+
+# Permalink page for date-driven articles: /news/detail/?id=YYYYMMDD-slug (rendered by dyn-render.js).
+# noindex: the content depends on the viewing date. The static per-article pages below remain as the 2026 archive.
+$pgs += @{
+  path = '/news/detail/'
+  title = 'ニュース詳細'
+  description = 'TMコーポレーション株式会社のニュースの詳細です。'
+  crumbs = $crumbNews
+  noindex = $true
+  body = @"
+<article class="section"><div class="container prose" data-dyn="news-detail">
+  <p>この記事を表示するには、JavaScriptを有効にしてください。</p>
+  <p style="margin-top:40px"><a class="more-link" href="/news/">ニュース一覧に戻る</a></p>
+</div></article>
+"@
 }
 
 foreach ($item in $all) {

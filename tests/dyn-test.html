@@ -1,0 +1,122 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>dyn-core tests</title>
+<pre id="out">running...</pre>
+<script src="../src/assets/scripts/dyn-core.js"></script>
+<script>
+/*
+ * Serve the repository root (serve.ps1 -Dir .) and open /tests/dyn-test.html.
+ * Result is written to #out and to document.title ("PASS n" / "FAIL n").
+ */
+(function () {
+  var D = window.TMDyn, lines = [], fails = 0, checks = 0;
+  function ok(c, msg) { checks++; if (!c) { fails++; lines.push('FAIL: ' + msg); } }
+  function eq(a, b, msg) { var x = JSON.stringify(a), y = JSON.stringify(b); ok(x === y, msg + '\n   got:      ' + x + '\n   expected: ' + y); }
+  function load(p) { var x = new XMLHttpRequest(); x.open('GET', p, false); x.send(); if (x.status !== 200) throw new Error(p + ' ' + x.status); return JSON.parse(x.responseText); }
+
+  // ---- 1. Baseline (2026-11-23) must reproduce the static JSON snapshot ----
+  var s = D.snapshot('2026-11-23'), base = '../src/data/';
+  var jn = load(base + 'news.json').map(function (n) { return { id: n.slug, date: n.date, category: n.category, title: n.title, summary: n.summary, body: n.body }; });
+  var gn = s.news.map(function (n) { return { id: n.id, date: n.date, category: n.category, title: n.title, summary: n.summary, body: n.body }; });
+  eq(gn, jn, 'baseline news == news.json');
+  eq(s.calendar, load(base + 'ir-calendar.json'), 'baseline calendar == ir-calendar.json');
+  eq(s.docs.map(function (d) { return { category: d.category, title: d.title, date: d.date, file: d.file }; }), load(base + 'ir-docs.json'), 'baseline docs == ir-docs.json');
+  var fj = load(base + 'financials.json');
+  eq(s.financials.years.map(function (y) { return { fy: y.fy, sales: y.sales, op: y.op, net: y.net }; }), fj.years, 'baseline financial years');
+  eq(s.financials.segments.map(function (x) { return { name: x.name, sales: x.sales }; }), fj.segments, 'baseline segments');
+  var sj = load(base + 'stock.json');
+  eq(s.stock.dividends, sj.dividends, 'baseline dividends');
+  eq(s.stock.basic, sj.basic, 'baseline stock basics');
+  var site = load(base + 'site.json').company;
+  eq(s.company, { employees: site.employees, sales: site.sales }, 'baseline company facts');
+  eq([s.ctx.latestFY, s.ctx.recruitClass, s.ctx.sustFY], [2026, 2027, 2025], 'baseline context');
+  eq(s.recruit.gradText, '2027年3月卒業見込み', 'baseline grad text');
+  eq(s.sustainability.envGoals[0], ['温室効果ガス排出量(Scope1・2)', '2030年度に2022年度比40%削減', '2022年度比 -18%'], 'baseline env goal');
+  eq(s.sustainability.envKpi.map(function (r) { return r[1]; }), ['-28', '35', '-15'], 'baseline env kpi');
+  eq(s.sustainability.socKpi.map(function (r) { return r[1]; }), ['38', '24', '62'], 'baseline soc kpi');
+  eq(s.sustainability.socGoals.map(function (r) { return r[2]; }), ['24%', '62%', '12名', '68%'], 'baseline soc goals');
+  eq(D.textSlots(s.ctx).young, '12', 'baseline young farmers');
+
+  // ---- 2. Clamp: dates before the snapshot behave as the snapshot ----
+  eq(D.snapshot('2020-01-01').ctx.now, '2026-11-23', 'now is clamped to the snapshot date');
+
+  // ---- 3. Rules over many dates ----
+  var dates = ['2026-11-24', '2027-01-01', '2027-02-12', '2027-05-19', '2027-05-20', '2027-07-14', '2027-07-15', '2027-10-19', '2027-10-20',
+    '2028-06-30', '2029-03-31', '2030-11-30', '2031-01-01', '2035-04-01', '2040-12-31', '2060-12-31', '2099-12-31'];
+  dates.forEach(function (d) {
+    var x = D.snapshot(d), c = x.ctx, y = +d.slice(0, 4), tag = '[' + d + '] ';
+    // determinism
+    eq(D.snapshot(d), x, tag + 'deterministic');
+    // fiscal logic
+    ok(c.latestFY === (d >= y + '-05-20' ? y : y - 1), tag + 'latestFY');
+    ok(c.recruitClass === (d >= y + '-07-15' ? y + 1 : y), tag + 'recruitClass');
+    ok(c.sustFY === (d >= y + '-10-20' ? y - 1 : y - 2), tag + 'sustFY');
+    // news: newest first, no future, none before floor, ids unique and resolvable
+    var ids = {};
+    x.news.forEach(function (n, i) {
+      ok(n.date <= d && n.date >= '2026-04-01', tag + 'news date range ' + n.id);
+      ok(i === 0 || x.news[i - 1].date >= n.date, tag + 'news order ' + n.id);
+      ok(!ids[n.id], tag + 'news id unique ' + n.id); ids[n.id] = 1;
+      ok(D.newsById(c, n.id) && D.newsById(c, n.id).title === n.title, tag + 'newsById ' + n.id);
+      ok(/^\d{8}-[a-z0-9-]+$/.test(n.id) && n.id.slice(0, 8) === n.date.replace(/-/g, ''), tag + 'id format ' + n.id);
+      ok(n.title && n.summary && n.body.length > 0 && D.catSlug[n.category], tag + 'news fields ' + n.id);
+    });
+    ok(x.news.length > 0, tag + 'news not empty');
+    ok(D.newsById(c, '29990101-ir-q2') === null, tag + 'future id rejected');
+    ok(D.newsById(c, 'bogus') === null, tag + 'bad id rejected');
+    // calendar: 1 past (済) then 5 upcoming (予定), ascending, boundary at today
+    var cal = x.calendar;
+    ok(cal.length === 6 && cal[0].status === '済' && cal[0].date <= d, tag + 'calendar past entry');
+    for (var k = 1; k < 6; k++) { ok(cal[k].status === '予定' && cal[k].date > d && cal[k].date >= cal[k - 1].date, tag + 'calendar upcoming ' + k); }
+    // docs
+    x.docs.forEach(function (r, i) { ok(r.date <= d && /\.pdf$/.test(r.file) && (i === 0 || x.docs[i - 1].date >= r.date), tag + 'docs ' + r.title); });
+    // financials: 5 consecutive years ending at latestFY, ranges, consistency
+    var f = x.financials, ys = f.years;
+    ok(ys.length === 5 && ys[4].year === c.latestFY && ys[0].year === c.latestFY - 4, tag + 'five fiscal years');
+    for (var i2 = 1; i2 < 5; i2++) {
+      var g = ys[i2].sales / ys[i2 - 1].sales;
+      ok(ys[i2].year === ys[i2 - 1].year + 1, tag + 'consecutive');
+      if (ys[i2].year > 2026) {
+        ok(g >= 1.019 && g <= 1.071, tag + 'sales growth in range ' + ys[i2].fy + ' ' + g);
+        ok(ys[i2].op > ys[i2 - 1].op && ys[i2].net > ys[i2 - 1].net, tag + 'profit grows ' + ys[i2].fy);
+      }
+    }
+    ys.forEach(function (r) {
+      var m = r.op / r.sales;
+      ok(m > 0.095 && m < 0.135, tag + 'op margin ' + r.fy + ' ' + m);
+      ok(r.net < r.op && r.net / r.op > 0.6 && r.net / r.op < 0.8, tag + 'net ratio ' + r.fy);
+    });
+    var segSum = 0; f.segments.forEach(function (sg) { segSum += sg.sales; ok(sg.sales > 0, tag + 'segment positive'); });
+    ok(segSum === f.cur.sales, tag + 'segments sum to sales (' + segSum + ' vs ' + f.cur.sales + ')');
+    x.stock.dividends.forEach(function (r, i) {
+      var fy = ys[i];
+      ok(r.fy === fy.fy && r.eps === Math.round(fy.net * 1e8 / 24000000) && r.dps === Math.round(r.eps * 3 / 10), tag + 'eps/dps ' + r.fy);
+    });
+    // period number and company facts
+    ok(D.period(c.latestFY) === c.latestFY - 1968, tag + 'period');
+    ok(/^\d+名\(連結\)$/.test(x.company.employees), tag + 'employees');
+    // sustainability stays inside sane bounds and targets are in the future of the report year
+    var su = x.sustainability, v = su.values;
+    ok(su.targetYear >= su.fy + 5 || su.targetYear === 2049, tag + 'target year ahead');
+    ok(v.water <= -28 && v.water >= -38 && v.renew >= 35 && v.renew <= 65 && v.par >= 62 && v.par <= 78 && v.fem >= 24 && v.fem <= 29, tag + 'sustainability bounds');
+    ok(x.sustainability.climate.indexOf(su.targetYear + '年度までに') > 0, tag + 'climate text');
+  });
+
+  // ---- 4. Stability: a given fiscal year always yields the same numbers, whatever "today" is ----
+  eq(D.fin(2030), D.snapshot('2031-03-01').financials.years.filter(function (y) { return y.year === 2030; })[0], 'FY2030 identical across dates');
+  eq(D.fin(2038), D.snapshot('2040-06-01').financials.years.filter(function (y) { return y.year === 2038; })[0], 'FY2038 identical across dates');
+  // announcement boundary: annual results appear on 5/20 and not a day before
+  ok(D.snapshot('2028-05-19').news.every(function (n) { return n.id.indexOf('-ir-fy2028') < 0; }), '2028-05-19: FY2028 results not yet published');
+  ok(D.snapshot('2028-05-20').news[0].id === '20280520-ir-fy2028', '2028-05-20: FY2028 results published');
+  eq(D.snapshot('2028-05-19').financials.cur.year, 2027, '2028-05-19: latest FY is 2027');
+  eq(D.snapshot('2028-05-20').financials.cur.year, 2028, '2028-05-20: latest FY is 2028');
+  // permalinks of old articles remain valid forever
+  ok(D.newsById(D.makeCtx('2060-01-01'), '20261114-ir-q2') !== null, 'old permalink still resolves in 2060');
+  eq(D.newsById(D.makeCtx('2060-01-01'), '20261114-ir-q2').title, '2027年3月期 第2四半期決算短信を公表しました', 'old permalink content stable');
+  ok(D.newsById(D.makeCtx('2026-11-23'), '20261105-press-farmlink') !== null && D.newsById(D.makeCtx('2026-11-23'), '20261201-ir-q2') === null, 'future ids hidden');
+
+  var msg = (fails ? 'FAIL ' + fails : 'PASS ' + checks) + ' (' + checks + ' checks)\n' + lines.join('\n');
+  document.getElementById('out').textContent = msg;
+  document.title = fails ? 'FAIL ' + fails : 'PASS ' + checks;
+})();
+</script>

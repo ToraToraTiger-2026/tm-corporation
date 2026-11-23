@@ -1,15 +1,21 @@
 $pgs = @()
 $crumbS = @(@{ label = 'サステナビリティ'; href = '/sustainability/' })
 
-function Get-Kpis($rows) {
+# $dyn: name of the dyn-render.js block that regenerates this markup for the viewing date
+# (figures here are the 2026-11-23 snapshot = no-JS fallback).
+function Get-Kpis($rows, [string]$dyn = '') {
   $h = ''
   foreach ($r in $rows) { $h += "<div class=`"kpi`"><p class=`"kpi-label`">$(Esc $r[0])</p><p class=`"kpi-value`">$(Esc $r[1])<span>$(Esc $r[2])</span></p></div>" }
-  return "<div class=`"grid cols-3`">$h</div>"
+  $html = "<div class=`"grid cols-3`">$h</div>"
+  if ($dyn) { return "<div data-dyn=`"$dyn`">$html</div>" }
+  return $html
 }
-function Get-GoalTable($rows) {
+function Get-GoalTable($rows, [string]$dyn = '') {
   $h = ''
   foreach ($r in $rows) { $h += "<tr><th scope=`"row`">$(Esc $r[0])</th><td>$(Esc $r[1])</td><td>$(Esc $r[2])</td></tr>" }
-  return "<div class=`"table-wrap`"><table class=`"data`"><caption class=`"sr-only`">目標と実績</caption><thead><tr><th scope=`"col`">項目</th><th scope=`"col`">目標</th><th scope=`"col`">2025年度の実績</th></tr></thead><tbody>$h</tbody></table></div>"
+  $html = "<div class=`"table-wrap`"><table class=`"data`"><caption class=`"sr-only`">目標と実績</caption><thead><tr><th scope=`"col`">項目</th><th scope=`"col`">目標</th><th scope=`"col`">2025年度の実績</th></tr></thead><tbody>$h</tbody></table></div>"
+  if ($dyn) { return "<div data-dyn=`"$dyn`">$html</div>" }
+  return $html
 }
 function Get-SubNav([string]$active) {
   $items = @(@('基本方針', '/sustainability/'), @('環境(E)', '/sustainability/environment/'), @('社会(S)', '/sustainability/social/'), @('ガバナンス(G)', '/sustainability/governance/'))
@@ -64,16 +70,16 @@ $(Get-PageHero '環境(E)' '農業事業を中心に、水・エネルギー・�
 <section class="section"><div class="container">
   $(Get-SubNav '/sustainability/environment/')
   <div class="section-head"><p class="eyebrow">Climate</p><h2>気候変動への対応</h2></div>
-  <p class="prose">事業活動で生じる温室効果ガス(Scope1・2)を、2030年度までに2022年度比40%削減し、2050年度までに実質ゼロにすることを目標としています。本社や拠点の電力の切り替えと、農業事業の設備(乾燥・貯蔵設備など)の更新を中心に取り組んでいます。</p>
+  <p class="prose" data-dyn="sus-climate">事業活動で生じる温室効果ガス(Scope1・2)を、2030年度までに2022年度比40%削減し、2050年度までに実質ゼロにすることを目標としています。本社や拠点の電力の切り替えと、農業事業の設備(乾燥・貯蔵設備など)の更新を中心に取り組んでいます。</p>
   <div class="section-head" style="margin-top:48px"><p class="eyebrow">Agriculture</p><h2>農業事業での取り組み</h2></div>
-  $(Get-Kpis @(@('圃場の水使用量(2022年度比)', '-28', '%'), @('農業設備の電力に占める再エネ比率', '35', '%'), @('化学肥料の使用量(2022年度比)', '-15', '%')))
+  $(Get-Kpis @(@('圃場の水使用量(2022年度比)', '-28', '%'), @('農業設備の電力に占める再エネ比率', '35', '%'), @('化学肥料の使用量(2022年度比)', '-15', '%')) 'sus-env-kpi')
   <ul class="prose" style="margin-top:32px">
     <li><strong>必要な量だけの給水:</strong>土壌の水分をセンサーで把握し、にんにくやおかわかめに必要な量だけを与えます。</li>
     <li><strong>輪作と堆肥の活用:</strong>作物を入れ替えて育てる輪作や堆肥の利用により、化学肥料の使用量を減らしています。</li>
     <li><strong>食品ロスの削減:</strong>出荷の規格に合わないにんにくなどを、熟成にんにくなどの加工品にして販売しています。</li>
   </ul>
   <div class="section-head" style="margin-top:48px"><p class="eyebrow">Targets</p><h2>目標と実績</h2></div>
-  $(Get-GoalTable @(@('温室効果ガス排出量(Scope1・2)', '2030年度に2022年度比40%削減', '2022年度比 -18%'), @('農業設備の再生可能エネルギー比率', '2030年度に70%', '35%'), @('圃場の水使用量', '2030年度に2022年度比40%削減', '2022年度比 -28%'), @('規格外農産物の加工・販売率', '2028年度に90%', '72%')))
+  $(Get-GoalTable @(@('温室効果ガス排出量(Scope1・2)', '2030年度に2022年度比40%削減', '2022年度比 -18%'), @('農業設備の再生可能エネルギー比率', '2030年度に70%', '35%'), @('圃場の水使用量', '2030年度に2022年度比40%削減', '2022年度比 -28%'), @('規格外農産物の加工・販売率', '2028年度に90%', '72%')) 'sus-env-goals')
 </div></section>
 "@
 }
@@ -89,16 +95,16 @@ $(Get-PageHero '社会(S)' '従業員、取引先、地域の皆様とともに�
 <section class="section"><div class="container">
   $(Get-SubNav '/sustainability/social/')
   <div class="section-head"><p class="eyebrow">People</p><h2>人材の育成と多様性</h2></div>
-  $(Get-Kpis @(@('従業員1人あたりの年間研修時間', '38', '時間'), @('女性管理職比率', '24', '%'), @('男性の育児休業取得率', '62', '%')))
+  $(Get-Kpis @(@('従業員1人あたりの年間研修時間', '38', '時間'), @('女性管理職比率', '24', '%'), @('男性の育児休業取得率', '62', '%')) 'sus-soc-kpi')
   <p class="prose" style="margin-top:32px">4つの事業をまたぐ異動や研修の機会を設け、幅広い経験を積めるようにしています。性別や年齢にかかわらず活躍できるよう、柔軟な働き方の制度を整えています。</p>
   <div class="section-head" style="margin-top:48px"><p class="eyebrow">Community</p><h2>地域・農業との連携</h2></div>
   <div class="grid cols-3">
-    <div class="card agri"><h3>若手就農者の支援</h3><p>就農を目指す若い方に、にんにくやおかわかめの栽培技術の研修と、設備投資の資金面の支援を行っています(年間12名)。</p></div>
+    <div class="card agri"><h3>若手就農者の支援</h3><p>就農を目指す若い方に、にんにくやおかわかめの栽培技術の研修と、設備投資の資金面の支援を行っています(年間<span data-dyn-text="young">12</span>名)。</p></div>
     <div class="card agri"><h3>農福連携</h3><p>障がいのある方が、自社の農場で働ける機会をつくり、働きやすい環境を整えています。</p></div>
     <div class="card"><h3>デジタルの学びの場</h3><p>地域の事業者や自治体の職員を対象に、ITの基礎講座を開催しています。</p></div>
   </div>
   <div class="section-head" style="margin-top:48px"><p class="eyebrow">Targets</p><h2>目標と実績</h2></div>
-  $(Get-GoalTable @(@('女性管理職比率', '2030年度に30%', '24%'), @('男性の育児休業取得率', '2028年度に80%', '62%'), @('若手就農者の支援人数', '年間15名', '12名'), @('従業員エンゲージメント調査の肯定回答率', '2028年度に75%', '68%')))
+  $(Get-GoalTable @(@('女性管理職比率', '2030年度に30%', '24%'), @('男性の育児休業取得率', '2028年度に80%', '62%'), @('若手就農者の支援人数', '年間15名', '12名'), @('従業員エンゲージメント調査の肯定回答率', '2028年度に75%', '68%')) 'sus-soc-goals')
 </div></section>
 "@
 }

@@ -55,7 +55,7 @@ function Get-Footer {
     <div class="footer-bottom">
       <ul class="policy">$pol</ul>
       <p class="demo-note">本サイトは架空の企業を題材にしたデモサイトです。</p>
-      <p class="copy"><small>&copy; $year TM Corporation (fictional). All rights reserved.</small></p>
+      <p class="copy"><small>&copy; <span data-dyn-text="year">$year</span> TM Corporation (fictional). All rights reserved.</small></p>
     </div>
   </div>
 </footer>

@@ -48,8 +48,8 @@
   <p class="lead">株主・投資家の皆様へ、経営成績や財務状況などの情報をお届けします。</p>
 </div></section>
 <section class="section"><div class="container">
-  <div class="section-head"><p class="eyebrow">Highlights</p><h2>2026年3月期 連結業績</h2></div>
-  <div class="grid cols-3">
+  <div class="section-head"><p class="eyebrow">Highlights</p><h2><span data-dyn-text="latestFY">2026年3月期</span> 連結業績</h2></div>
+  <div class="grid cols-3" data-dyn="kpi">
     <div class="kpi"><p class="kpi-label">売上高</p><p class="kpi-value">286<span>億円</span></p><p class="kpi-diff">前期比 +5.5%</p></div>
     <div class="kpi"><p class="kpi-label">営業利益</p><p class="kpi-value">33<span>億円</span></p><p class="kpi-diff">前期比 +6.5%</p></div>
     <div class="kpi"><p class="kpi-label">親会社株主に帰属する当期純利益</p><p class="kpi-value">23<span>億円</span></p><p class="kpi-diff">前期比 +9.5%</p></div>
@@ -66,7 +66,7 @@
 </div></section>
 <section class="section"><div class="container">
   <div class="section-head" style="display:flex;justify-content:space-between;align-items:end;flex-wrap:wrap;gap:12px"><div><p class="eyebrow">IR News</p><h2 style="margin:0">最新のIRニュース</h2></div><a class="more-link" href="../ir/news/index.html">一覧を見る</a></div>
-  <ul class="news-list"><li><time datetime="2026-11-14">2026.11.14</time><span class="tag">IR</span><a href="../news/20261114-ir-q2/index.html">2027年3月期 第2四半期決算短信を公表しました</a></li><li><time datetime="2026-08-08">2026.08.08</time><span class="tag">IR</span><a href="../news/20260808-ir-q1/index.html">2027年3月期 第1四半期決算短信を公表しました</a></li><li><time datetime="2026-06-24">2026.06.24</time><span class="tag">IR</span><a href="../news/20260624-ir-agm/index.html">第58期定時株主総会 決議ご通知を掲載しました</a></li></ul>
+  <div data-dyn="news" data-cat="IR" data-limit="3"><ul class="news-list"><li><time datetime="2026-11-14">2026.11.14</time><span class="tag">IR</span><a href="../news/20261114-ir-q2/index.html">2027年3月期 第2四半期決算短信を公表しました</a></li><li><time datetime="2026-08-08">2026.08.08</time><span class="tag">IR</span><a href="../news/20260808-ir-q1/index.html">2027年3月期 第1四半期決算短信を公表しました</a></li><li><time datetime="2026-06-24">2026.06.24</time><span class="tag">IR</span><a href="../news/20260624-ir-agm/index.html">第58期定時株主総会 決議ご通知を掲載しました</a></li></ul></div>
 </div></section>
 </main>
 <footer class="site-footer">
@@ -75,11 +75,13 @@
     <div class="footer-bottom">
       <ul class="policy"><li><a href="../privacy/index.html">プライバシーポリシー</a></li><li><a href="../site-policy/index.html">サイトポリシー</a></li><li><a href="../sitemap/index.html">サイトマップ</a></li><li><a href="../contact/index.html">お問い合わせ</a></li></ul>
       <p class="demo-note">本サイトは架空の企業を題材にしたデモサイトです。</p>
-      <p class="copy"><small>&copy; 2026 TM Corporation (fictional). All rights reserved.</small></p>
+      <p class="copy"><small>&copy; <span data-dyn-text="year">2026</span> TM Corporation (fictional). All rights reserved.</small></p>
     </div>
   </div>
 </footer>
 <a href="#top" class="page-top" id="page-top" aria-label="ページの先頭へ戻る"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 12l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+<script src="../assets/scripts/dyn-core.js" defer></script>
+<script src="../assets/scripts/dyn-render.js" defer></script>
 <script src="../assets/scripts/main.js" defer></script>
 </body>
 </html>

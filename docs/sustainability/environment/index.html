@@ -50,16 +50,16 @@
 <section class="section"><div class="container">
   <nav aria-label="サステナビリティ内のページ"><ul class="filter"><li><a href="../../sustainability/index.html">基本方針</a></li><li><a href="../../sustainability/environment/index.html" aria-current="page">環境(E)</a></li><li><a href="../../sustainability/social/index.html">社会(S)</a></li><li><a href="../../sustainability/governance/index.html">ガバナンス(G)</a></li></ul></nav>
   <div class="section-head"><p class="eyebrow">Climate</p><h2>気候変動への対応</h2></div>
-  <p class="prose">事業活動で生じる温室効果ガス(Scope1・2)を、2030年度までに2022年度比40%削減し、2050年度までに実質ゼロにすることを目標としています。本社や拠点の電力の切り替えと、農業事業の設備(乾燥・貯蔵設備など)の更新を中心に取り組んでいます。</p>
+  <p class="prose" data-dyn="sus-climate">事業活動で生じる温室効果ガス(Scope1・2)を、2030年度までに2022年度比40%削減し、2050年度までに実質ゼロにすることを目標としています。本社や拠点の電力の切り替えと、農業事業の設備(乾燥・貯蔵設備など)の更新を中心に取り組んでいます。</p>
   <div class="section-head" style="margin-top:48px"><p class="eyebrow">Agriculture</p><h2>農業事業での取り組み</h2></div>
-  <div class="grid cols-3"><div class="kpi"><p class="kpi-label">圃場の水使用量(2022年度比)</p><p class="kpi-value">-28<span>%</span></p></div><div class="kpi"><p class="kpi-label">農業設備の電力に占める再エネ比率</p><p class="kpi-value">35<span>%</span></p></div><div class="kpi"><p class="kpi-label">化学肥料の使用量(2022年度比)</p><p class="kpi-value">-15<span>%</span></p></div></div>
+  <div data-dyn="sus-env-kpi"><div class="grid cols-3"><div class="kpi"><p class="kpi-label">圃場の水使用量(2022年度比)</p><p class="kpi-value">-28<span>%</span></p></div><div class="kpi"><p class="kpi-label">農業設備の電力に占める再エネ比率</p><p class="kpi-value">35<span>%</span></p></div><div class="kpi"><p class="kpi-label">化学肥料の使用量(2022年度比)</p><p class="kpi-value">-15<span>%</span></p></div></div></div>
   <ul class="prose" style="margin-top:32px">
     <li><strong>必要な量だけの給水:</strong>土壌の水分をセンサーで把握し、にんにくやおかわかめに必要な量だけを与えます。</li>
     <li><strong>輪作と堆肥の活用:</strong>作物を入れ替えて育てる輪作や堆肥の利用により、化学肥料の使用量を減らしています。</li>
     <li><strong>食品ロスの削減:</strong>出荷の規格に合わないにんにくなどを、熟成にんにくなどの加工品にして販売しています。</li>
   </ul>
   <div class="section-head" style="margin-top:48px"><p class="eyebrow">Targets</p><h2>目標と実績</h2></div>
-  <div class="table-wrap"><table class="data"><caption class="sr-only">目標と実績</caption><thead><tr><th scope="col">項目</th><th scope="col">目標</th><th scope="col">2025年度の実績</th></tr></thead><tbody><tr><th scope="row">温室効果ガス排出量(Scope1・2)</th><td>2030年度に2022年度比40%削減</td><td>2022年度比 -18%</td></tr><tr><th scope="row">農業設備の再生可能エネルギー比率</th><td>2030年度に70%</td><td>35%</td></tr><tr><th scope="row">圃場の水使用量</th><td>2030年度に2022年度比40%削減</td><td>2022年度比 -28%</td></tr><tr><th scope="row">規格外農産物の加工・販売率</th><td>2028年度に90%</td><td>72%</td></tr></tbody></table></div>
+  <div data-dyn="sus-env-goals"><div class="table-wrap"><table class="data"><caption class="sr-only">目標と実績</caption><thead><tr><th scope="col">項目</th><th scope="col">目標</th><th scope="col">2025年度の実績</th></tr></thead><tbody><tr><th scope="row">温室効果ガス排出量(Scope1・2)</th><td>2030年度に2022年度比40%削減</td><td>2022年度比 -18%</td></tr><tr><th scope="row">農業設備の再生可能エネルギー比率</th><td>2030年度に70%</td><td>35%</td></tr><tr><th scope="row">圃場の水使用量</th><td>2030年度に2022年度比40%削減</td><td>2022年度比 -28%</td></tr><tr><th scope="row">規格外農産物の加工・販売率</th><td>2028年度に90%</td><td>72%</td></tr></tbody></table></div></div>
 </div></section>
 </main>
 <footer class="site-footer">
@@ -68,11 +68,13 @@
     <div class="footer-bottom">
       <ul class="policy"><li><a href="../../privacy/index.html">プライバシーポリシー</a></li><li><a href="../../site-policy/index.html">サイトポリシー</a></li><li><a href="../../sitemap/index.html">サイトマップ</a></li><li><a href="../../contact/index.html">お問い合わせ</a></li></ul>
       <p class="demo-note">本サイトは架空の企業を題材にしたデモサイトです。</p>
-      <p class="copy"><small>&copy; 2026 TM Corporation (fictional). All rights reserved.</small></p>
+      <p class="copy"><small>&copy; <span data-dyn-text="year">2026</span> TM Corporation (fictional). All rights reserved.</small></p>
     </div>
   </div>
 </footer>
 <a href="#top" class="page-top" id="page-top" aria-label="ページの先頭へ戻る"><svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 12l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></a>
+<script src="../../assets/scripts/dyn-core.js" defer></script>
+<script src="../../assets/scripts/dyn-render.js" defer></script>
 <script src="../../assets/scripts/main.js" defer></script>
 </body>
 </html>
