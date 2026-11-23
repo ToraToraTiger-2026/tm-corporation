@@ -50,7 +50,7 @@
     fades.forEach(function (el) { el.classList.add('in'); });
   }
 
-  // Contact form (validation only; nothing is sent)
+  // Contact form (demo site: the submit button is disabled and nothing is ever sent)
   var form = document.getElementById('contact-form');
   if (form) {
     form.setAttribute('novalidate', '');
@@ -67,16 +67,7 @@
     form.querySelectorAll('input, select, textarea').forEach(function (f) {
       f.addEventListener('blur', function () { validate(f); });
     });
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var firstBad = null;
-      form.querySelectorAll('input, select, textarea').forEach(function (f) {
-        if (!validate(f) && !firstBad) firstBad = f;
-      });
-      if (firstBad) { firstBad.focus(); return; }
-      form.hidden = true;
-      var done = document.getElementById('contact-done');
-      if (done) { done.hidden = false; done.focus(); }
-    });
+    // Safeguard: never submit or navigate, even if the button is re-enabled via devtools.
+    form.addEventListener('submit', function (e) { e.preventDefault(); });
   }
 })();

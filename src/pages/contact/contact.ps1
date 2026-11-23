@@ -7,7 +7,7 @@
 $(Get-PageHero 'お問い合わせ' '' 'Contact')
 <section class="section"><div class="container">
   <div class="prose">
-    <form id="contact-form" action="/contact/" method="post" novalidate>
+    <form id="contact-form" method="post" novalidate>
       <div class="form-row">
         <label for="f-type">お問い合わせ種別<span class="req">必須</span></label>
         <select id="f-type" name="type" required aria-describedby="f-type-error">
@@ -49,14 +49,9 @@ $(Get-PageHero 'お問い合わせ' '' 'Contact')
         <label for="f-agree" style="display:inline">個人情報の取り扱い(<a href="/privacy/">プライバシーポリシー</a>)に同意する<span class="req">必須</span></label>
         <p class="error-msg" id="f-agree-error" role="alert"></p>
       </div>
-      <button type="submit" class="btn">確認して送信</button>
+      <button type="submit" class="btn" disabled aria-disabled="true" aria-describedby="f-demo-note" title="デモサイトのため送信できません">確認して送信</button>
+      <p class="notice" id="f-demo-note" style="margin-top:16px">本サイトはデモサイトのため、お問い合わせの送信はできません。</p>
     </form>
-
-    <div id="contact-done" class="notice" hidden tabindex="-1" role="status">
-      <h2 style="font-size:1.2rem">入力内容を確認しました</h2>
-      <p>入力内容に不備はありませんでした。なお、このフォームからは、実際の送信は行われません。</p>
-      <p><a href="/">トップページへ戻る</a></p>
-    </div>
   </div>
 </div></section>
 "@

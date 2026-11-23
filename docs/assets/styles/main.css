@@ -216,6 +216,7 @@ input[type=text], input[type=email], input[type=tel], select, textarea { width: 
 textarea { min-height: 180px; }
 .error-msg { color: #B42318; font-size: .88rem; margin: 4px 0 0; }
 input[aria-invalid=true], select[aria-invalid=true], textarea[aria-invalid=true] { border-color: #B42318; }
+.btn:disabled, .btn:disabled:hover { background: #E5E9F0; border-color: #8A94A6; color: #4A5568; cursor: not-allowed; }
 .notice { background: var(--c-bg-soft); border-left: 4px solid var(--c-accent); padding: 16px 20px; border-radius: var(--radius); }
 
 [hidden] { display: none !important; }
