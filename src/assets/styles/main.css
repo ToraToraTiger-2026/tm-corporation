@@ -398,3 +398,13 @@ html:not(.js) .fade { opacity: 1; transform: none; }
 .ps-hero h1 { max-width: 16em; }
 .ps-quote blockquote p, .ps-top-lead, .ps-hero-lead { word-break: auto-phrase; }
 .ps-card:last-child { margin-bottom: 0; }
+
+/* project story list: photo thumbnails (16:9) */
+.ps-card-visual.has-photo { aspect-ratio: 16 / 9; background: var(--c-bg-soft); }
+.ps-card-visual.has-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8,28,60,.55) 0%, rgba(8,28,60,0) 34%); pointer-events: none; }
+.ps-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; transition: transform .5s ease; }
+.ps-card-visual.has-photo:hover .ps-thumb { transform: scale(1.03); }
+@media (prefers-reduced-motion: reduce) { .ps-thumb { transition: none; } .ps-card-visual.has-photo:hover .ps-thumb { transform: none; } }
+.ps-card-visual.has-photo::after { display: none; }
+.has-photo .ps-num { left: 12px; top: 12px; padding: 3px 12px 3px 10px; border-radius: 999px; background: rgba(8,28,60,.78); font-size: .7rem; }
+.has-photo .ps-num b { margin-left: 4px; font-size: 1.05rem; }

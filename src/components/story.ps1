@@ -62,12 +62,20 @@ function Get-StoryCard($story, [int]$index) {
     if ($e) { $people += "<li><span class=`"ps-mini`">$(Get-PersonPhoto $e.photo ($e.name))</span><span><strong>$(Esc $e.name)</strong><small>$(Esc $e.department)</small></span></li>" }
   }
   $kw = ''; foreach ($k in @($story.keywords)) { $kw += "<li>$(Esc $k)</li>" }
+  # Thumbnail: a photo in src/assets/images/ (16:9 recommended) when set in stories.json; otherwise SVG art + portraits.
+  $hasPhoto = $story.thumb -and (Test-Path (Join-Path $Root ('src/assets/images/' + $story.thumb)))
+  if ($hasPhoto) {
+    $visualCls = 'ps-card-visual has-photo'
+    $visual = "<img class=`"ps-thumb`" src=`"/assets/images/$($story.thumb)`" alt=`"$(Esc $story.thumbAlt)`" width=`"1672`" height=`"941`" loading=`"lazy`">"
+  } else {
+    $visualCls = 'ps-card-visual'
+    $visual = "$(Get-StoryArt $story.class)$(Get-StoryFaces $story)"
+  }
   return @"
 <article class="ps-card ps-$($story.class)$rev fade">
-  <a class="ps-card-visual" href="$href" tabindex="-1" aria-hidden="true">
-    $(Get-StoryArt $story.class)
+  <a class="$visualCls" href="$href" tabindex="-1" aria-hidden="true">
+    $visual
     <span class="ps-num">STORY <b>$(Esc $story.number)</b></span>
-    $(Get-StoryFaces $story)
   </a>
   <div class="ps-card-body">
     <p class="eyebrow">STORY $(Esc $story.number) / $(Esc $story.business)</p>
